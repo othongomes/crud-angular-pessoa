@@ -1,0 +1,9 @@
+[
+  {
+    "_id": 1,
+    "nome": "Othon",
+    "nascimento": "1995-09-05T00:00:00.000Z",
+    "email": "othon@gmail.com",
+    "cpf": "11111111111"
+  }
+]
