@@ -21,4 +21,10 @@ export class PersonsService {
       tap(persons => console.log(persons))
     );
   }
+
+  save(record: PersonModel) {
+    //console.log(record);
+    return this.httpCliente.post<PersonModel>(this.API, record)
+    .pipe(first());
+  }
 }
