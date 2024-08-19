@@ -9,11 +9,12 @@ import { ErrorDialogComponent } from '../../shared/components/error-dialog/error
 import { CategoryPipe } from '../../shared/pipes/category.pipe';
 import { PersonModel } from '../model/person-model';
 import { PersonsService } from './../services/persons.service';
+import { PersonsListComponent } from "../persons-list/persons-list.component";
 
 @Component({
   selector: 'app-persons',
   standalone: true,
-  imports: [AppMaterialModule, CommonModule, ErrorDialogComponent, CategoryPipe], //Importado ErrorDialogComponent
+  imports: [AppMaterialModule, CommonModule, ErrorDialogComponent, CategoryPipe, PersonsListComponent], //Importado ErrorDialogComponent
   templateUrl: './persons.component.html',
   styleUrl: './persons.component.scss'
 })
@@ -22,7 +23,7 @@ export class PersonsComponent {
   personsData$: Observable<PersonModel[]>; // Identificamos como um Observable de personsModel
   //dataSource = ELEMENT_DATA;
 
-  displayedColumns: string[] = ['_id', 'genero', 'nome', 'nascimento', 'email', 'cpf', 'actions'];
+  //displayedColumns: string[] = ['_id', 'genero', 'nome', 'nascimento', 'email', 'cpf', 'actions'];
 
   //PersonsService: PersonsService;
 

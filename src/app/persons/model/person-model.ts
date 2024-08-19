@@ -1,6 +1,7 @@
 export interface PersonModel {
 
   _id: Number;
+  genero: String;
   nome: String;
   nascimento: Date;
   email: String;

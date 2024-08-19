@@ -1,0 +1,72 @@
+<mat-table [dataSource]="persons">
+  <!--- Note that these columns can be defined in any order.
+    The actual rendered columns are set as a property on the row definition" -->
+
+  <!-- ID Column -->
+  <ng-container matColumnDef="_id">
+    <mat-header-cell *matHeaderCellDef>ID.</mat-header-cell>
+    <mat-cell *matCellDef="let element">{{ element._id }}</mat-cell>
+  </ng-container>
+
+  <!-- Gender Column -->
+  <ng-container matColumnDef="genero">
+    <mat-header-cell *matHeaderCellDef >Genero</mat-header-cell>
+    <mat-cell *matCellDef="let element" >{{ element.genero }}</mat-cell>
+  </ng-container>
+
+  <!-- Name Column -->
+  <ng-container matColumnDef="nome">
+    <mat-header-cell *matHeaderCellDef>Nome</mat-header-cell>
+    <mat-cell *matCellDef="let element">{{ element.nome }}</mat-cell>
+  </ng-container>
+
+  <!-- Nascimento Column -->
+  <ng-container matColumnDef="nascimento">
+    <mat-header-cell *matHeaderCellDef>Nascimento</mat-header-cell>
+    <mat-cell *matCellDef="let element">{{ element.nascimento }}</mat-cell>
+  </ng-container>
+
+  <!-- EMAIL Column -->
+  <ng-container matColumnDef="email">
+    <mat-header-cell *matHeaderCellDef>Email</mat-header-cell>
+    <mat-cell *matCellDef="let element">
+      {{ element.email }}
+      <mat-icon aria-hidden="false" aria-label="email category">{{
+        element.email | category
+      }}</mat-icon>
+    </mat-cell>
+  </ng-container>
+
+  <!-- cpf Column -->
+  <ng-container matColumnDef="cpf">
+    <mat-header-cell *matHeaderCellDef>CPF</mat-header-cell>
+    <mat-cell *matCellDef="let element">{{ element.cpf }}</mat-cell>
+  </ng-container>
+
+  <!-- Actions Column -->
+  <ng-container matColumnDef="actions">
+    <mat-header-cell *matHeaderCellDef>
+      Ações
+      <button
+        mat-mini-fab
+        color="accent"
+        aria-label="Adicionar um usuário"
+        class="action-column-header"
+      >
+        <mat-icon (click)="goToForm()">add</mat-icon>
+      </button>
+    </mat-header-cell>
+
+    <mat-cell *matCellDef="let element">
+      <button mat-icon-button color="primary" aria-label="Editar curso">
+        <mat-icon>edit</mat-icon>
+      </button>
+      <button mat-icon-button color="warn" aria-label="Excluir curso">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+</mat-table>

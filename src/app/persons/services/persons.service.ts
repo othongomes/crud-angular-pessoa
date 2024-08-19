@@ -17,7 +17,7 @@ export class PersonsService {
     return this.httpCliente.get<PersonModel[]>(this.API)
     .pipe(
       first(),
-      //delay(2000),
+      delay(2000),
       tap(persons => console.log(persons))
     );
   }
