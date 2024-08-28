@@ -6,6 +6,9 @@
       <app-persons-list
         *ngIf="personsData$ | async as persons; else loading"
         [persons]="persons"
+        (add)="goToForm()"
+        (edit)="goToFormEdit($event)"
+        (remove)="onRemove($event)"
       >
       </app-persons-list>
 

@@ -10,8 +10,8 @@
 
   <!-- Gender Column -->
   <ng-container matColumnDef="genero">
-    <mat-header-cell *matHeaderCellDef >Genero</mat-header-cell>
-    <mat-cell *matCellDef="let element" >{{ element.genero }}</mat-cell>
+    <mat-header-cell *matHeaderCellDef>Genero</mat-header-cell>
+    <mat-cell *matCellDef="let element">{{ element.genero }}</mat-cell>
   </ng-container>
 
   <!-- Name Column -->
@@ -45,7 +45,7 @@
 
   <!-- Actions Column -->
   <ng-container matColumnDef="actions">
-    <mat-header-cell *matHeaderCellDef>
+    <mat-header-cell *matHeaderCellDef class="action-column">
       Ações
       <button
         mat-mini-fab
@@ -57,14 +57,18 @@
       </button>
     </mat-header-cell>
 
-    <mat-cell *matCellDef="let element">
+    <mat-cell *matCellDef="let element" class="action-column">
+
       <button mat-icon-button color="primary" aria-label="Editar curso">
-        <mat-icon>edit</mat-icon>
+        <mat-icon (click)="goToFormEdit(element)">edit</mat-icon>
       </button>
+
       <button mat-icon-button color="warn" aria-label="Excluir curso">
-        <mat-icon>delete</mat-icon>
+        <mat-icon (click)="onDelete(element)">delete</mat-icon>
       </button>
+
     </mat-cell>
+
   </ng-container>
 
   <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>

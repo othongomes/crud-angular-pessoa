@@ -19,7 +19,11 @@
       </mat-form-field>
 
       <mat-form-field appearance="outline" class="full-width">
-        <input matInput placeholder="Nome" formControlName="nome" />
+        <input matInput placeholder="Nome" formControlName="nome" #nametag/>
+        <mat-hint align="end">{{ nametag.value.length || 0 }}/100</mat-hint>
+        @if (form.get('nome')?.invalid) {
+          <mat-error>{{errorMessage("nome")}}</mat-error>
+        }
       </mat-form-field>
 
       <mat-form-field appearance="outline" class="full-width">
@@ -30,17 +34,25 @@
       </mat-form-field>
 
       <mat-form-field appearance="outline" class="full-width">
-        <input matInput placeholder="Email" formControlName="email" /> <!-- 3 -->
+        <input matInput placeholder="Email" formControlName="email" #emailtag/> <!-- 3 -->
+        <mat-hint align="end">{{ emailtag.value.length || 0 }}/100</mat-hint>
+        @if (form.get('email')?.invalid) {
+          <mat-error>{{errorMessage("email")}}</mat-error>
+        }
       </mat-form-field>
 
       <mat-form-field appearance="outline" class="full-width">
-        <input matInput placeholder="CPF" formControlName="cpf" /> <!-- 3 -->
+        <input matInput placeholder="CPF" formControlName="cpf" #cpftag/>
+        <mat-hint align="end">{{ cpftag.value.length || 0 }}/11</mat-hint> <!-- 3 -->
+        @if (form.get('cpf')?.invalid) {
+          <mat-error>{{errorMessage("cpf")}}</mat-error>
+        }
       </mat-form-field>
     </form>
   </mat-card-content>
 
   <mat-card-actions>
-    <button mat-raised-button color="accent" (click)="onSubmit()">CRIAR</button>
+    <button mat-raised-button color="accent" (click)="onSubmit()">SALVAR</button>
     <button mat-raised-button (click)="onCancel()">CANCELAR</button>
   </mat-card-actions>
 </mat-card>

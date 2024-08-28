@@ -17,14 +17,36 @@ export class PersonsService {
     return this.httpCliente.get<PersonModel[]>(this.API)
     .pipe(
       first(),
-      delay(2000),
+      //delay(1000),
       tap(persons => console.log(persons))
     );
   }
 
-  save(record: PersonModel) {
+  loadById(id: Number) {
+    return this.httpCliente.get<PersonModel>(`${this.API}/${id}`);
+  }
+
+  save(record: Partial<PersonModel>) {
     //console.log(record);
+    if (record._id) {
+      return this.update(record);
+    }
+    return this.create(record);
+  }
+
+  private create(record: Partial<PersonModel>) {
     return this.httpCliente.post<PersonModel>(this.API, record)
     .pipe(first());
   }
+
+  private update(record: Partial<PersonModel>) {
+    return this.httpCliente.put<PersonModel>(`${this.API}/${record._id}`, record)
+    .pipe(first());
+  }
+
+  remove(id: Number) {
+    return this.httpCliente.delete(`${this.API}/${id}`)
+    .pipe(first());
+  }
+
 }
