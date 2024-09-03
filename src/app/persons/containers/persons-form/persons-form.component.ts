@@ -1,3 +1,4 @@
+import { PersonModel } from './../../model/person-model';
 import { Location } from '@angular/common';
 import { Component } from '@angular/core';
 import {
@@ -13,8 +14,8 @@ import moment from 'moment';
 import { AppMaterialModule } from '../../../shared/app-material/app-material.module';
 import { DateFormatModule } from '../../../shared/date-format/date-format.module';
 import { PersonsListComponent } from '../../components/persons-list/persons-list.component';
-import { PersonModel } from '../../model/person-model';
 import { PersonsService } from '../../services/persons.service';
+import { Phone } from '../../model/phone';
 
 @Component({
   selector: 'app-persons-form',
@@ -29,7 +30,8 @@ import { PersonsService } from '../../services/persons.service';
   styleUrl: './persons-form.component.scss',
 })
 export class PersonsFormComponent {
-  form: FormGroup;
+
+  form!: FormGroup;
 
   constructor(
     private formBuilder: NonNullableFormBuilder,
@@ -38,40 +40,35 @@ export class PersonsFormComponent {
     private location: Location,
     private route: ActivatedRoute
   ) {
-    this.form = this.formBuilder.group({
-      _id: [''],
-
-      genero: ['', Validators.required],
-
-      nome: [
-        '',
-        [
-          Validators.required,
-          Validators.minLength(3),
-          Validators.maxLength(100),
-        ],
-      ],
-
-      nascimento: [''],
-
-      email: [
-        '',
-        [Validators.required, Validators.email, Validators.maxLength(100)],
-      ],
-
-      cpf: [
-        '',
-        [
-          Validators.required,
-          Validators.minLength(11),
-          Validators.maxLength(11),
-        ],
-      ],
-
-      status: ['']
-    });
+    // this.form = this.formBuilder.group({
+    //   _id: [''],
+    //   genero: ['', Validators.required],
+    //   nome: [
+    //     '',
+    //     [
+    //       Validators.required,
+    //       Validators.minLength(3),
+    //       Validators.maxLength(100),
+    //     ],
+    //   ],
+    //   nascimento: [''],
+    //   email: [
+    //     '',
+    //     [Validators.required, Validators.email, Validators.maxLength(100)],
+    //   ],
+    //   cpf: [
+    //     '',
+    //     [
+    //       Validators.required,
+    //       Validators.minLength(11),
+    //       Validators.maxLength(11),
+    //     ],
+    //   ],
+    //   status: ['']
+    // });
 
     const person: PersonModel = this.route.snapshot.data['person'];
+    //ETAPA 1
     // this.form.setValue({
     //   _id: person._id,
     //   genero: person.genero,
@@ -80,9 +77,63 @@ export class PersonsFormComponent {
     //   email: person.email,
     //   cpf: person.cpf
     // })
-    this.form.patchValue(person);
 
-    console.log(person);
+    //ETAPA 2
+    //this.form.patchValue(person);
+
+    //ETAPA 3
+    this.form = this.formBuilder.group({
+      _id: [person._id],
+      genero: [person.genero, Validators.required],
+      nome: [
+        person.nome,
+        [
+          Validators.required,
+          Validators.minLength(3),
+          Validators.maxLength(100),
+        ],
+      ],
+      nascimento: [person.nascimento],
+      email: [
+        person.email,
+        [Validators.required, Validators.email, Validators.maxLength(100)],
+      ],
+      cpf: [
+        person.cpf,
+        [
+          Validators.required,
+          Validators.minLength(11),
+          Validators.maxLength(11),
+        ],
+      ],
+      status: [''],
+      phones: this.formBuilder.array(this.retrievePhone(person))
+    });
+
+    console.log(this.form);
+    console.log(this.form.value);
+
+  }
+
+  private retrievePhone(person: PersonModel) {
+    const phones = [];
+    if (person?.phones) {
+      person.phones.forEach((phone) => {
+        phones.push(this.createPhone(phone));
+      })
+    } else {
+      phones.push(this.createPhone());
+    }
+    return phones;
+  }
+
+
+  private createPhone(phone: Phone = {_id: '', number: '', type: ''}) {
+    return this.formBuilder.group({
+      _id: [phone._id],
+      number: [phone.number, Validators.required],
+      type: [phone.type, Validators.required],
+    })
   }
 
   onSubmit() {
