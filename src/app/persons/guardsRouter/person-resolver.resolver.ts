@@ -17,6 +17,7 @@ export const personResolverResolver: ResolveFn<Observable<PersonModel>> = (route
     nome: '',
     nascimento: new Date,  // Use um novo objeto Date ou outra data válida
     email: '',
-    cpf: ''
+    cpf: '',
+    phones: []
   });
 }

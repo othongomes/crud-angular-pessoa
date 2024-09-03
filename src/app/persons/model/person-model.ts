@@ -1,3 +1,5 @@
+import { Phone } from "./phone";
+
 export interface PersonModel {
 
   _id: Number;
@@ -6,6 +8,7 @@ export interface PersonModel {
   nascimento: Date;
   email: String;
   cpf: String;
+  phones: Phone[];
 
 }
 

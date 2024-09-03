@@ -81,6 +81,8 @@ export class PersonsFormComponent {
     //   cpf: person.cpf
     // })
     this.form.patchValue(person);
+
+    console.log(person);
   }
 
   onSubmit() {
